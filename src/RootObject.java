@@ -8,8 +8,8 @@ public class RootObject extends LinkObject {
 	
 	public RootObject() {
 		//on commence par construire le RootObject, au depart il est tout seul
-		this.L= null;
-		this.R = null;
+		this.L= this;
+		this.R = this;
 		this.U = null;
 		this.D = null;
 		this.C = null;
