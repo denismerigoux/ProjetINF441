@@ -4,13 +4,13 @@ public class ColumnObject extends LinkObject {
 	public LinkObject R;
 	public LinkObject U;
 	public LinkObject D;
-	public final ColumnObject C;//La colonne à laquelle appartient l'objet ne change pas
+	public final ColumnObject C;//La colonne a laquelle appartient l'objet ne change pas
 	public int S;//nombre de maillons dans la colonne
-	public int N;//numéro qui identifie la colonne
+	public int N;//numero qui identifie la colonne
 	
 	public ColumnObject(int N, LinkObject L) {
-		//on construit les colonnes de la matrice de gauche à droite, en commençant par le RootObject
-		//ça va donner une liste chaînee que l'on chaîne doublement en repassant une deuxieme fois
+		//on construit les colonnes de la matrice de gauche a droite, en commencant par le RootObject
+		//ï¿½a va donner une liste chainee que l'on chaine doublement en repassant une deuxieme fois
 		this.L=null;
 		this.R=null;
 		this.U=null;
