@@ -62,14 +62,19 @@ public class LinkMatrix {
 		c.L.R = c;
 	}
 	
-	public ArrayList<DataObject> DancingLinks(ArrayList<DataObject> solution, int k) {
-		//ArrayList est une structure de donnees que l'on peut parcourir
-		//avec un iterateur
+	public ArrayList<ArrayList<Integer>> DancingLinks(ArrayList<DataObject> currentSolution, int k, ArrayList<ArrayList<Integer>> solutions) {
+		//La fonction est recursive, il faut d'abord l'appeler avec k=0 et des tableaux vides pour solutions et currentSolution
+		//Elle outpute une liste iterative contenant des listes iteratives qui sont les numeros des colonnes retenues pour chacune des solutions
 		
-		//Si root.R = root, la matrice est vide et c'est fini
+		//Si root.R = root, la matrice est vide et on ajoute la solution en cours au tableau des solutions
 		if (this.root.R == this.root) {
-			//on affiche la solution ou quoi
-			return solution;
+			//Mais avant on transforme les DataObjects en le numero de leur colonne pour stocker ca plus facilement.
+			ArrayList<Integer> printedCurrentSolution = new ArrayList<Integer>();
+			for (DataObject o : currentSolution) {
+				printedCurrentSolution.add(o.C.N);
+			}
+			solutions.add(printedCurrentSolution);
+			return solutions;
 		}
 		
 		//Ensuite on choisit de maniere deterministe une colonne.
@@ -80,7 +85,7 @@ public class LinkMatrix {
 		
 		LinkObject currentColLink = c.D;
 		while (currentColLink instanceof DataObject) {
-			solution.set(k, (DataObject)currentColLink);//On ajoute l'element au tableau qui stocke la solution en cours
+			currentSolution.set(k, (DataObject)currentColLink);//On ajoute l'element au tableau qui stocke la solution en cours
 			
 			DataObject currentRowLink = (DataObject)currentColLink.R;
 			while (currentRowLink != currentColLink) {
@@ -89,9 +94,9 @@ public class LinkMatrix {
 				currentRowLink = (DataObject)currentRowLink.R;
 			}
 			
-			DancingLinks(solution, k+1);
+			solutions = DancingLinks(currentSolution, k+1, solutions);
 			
-			currentColLink = solution.get(k);
+			currentColLink = currentSolution.get(k);
 			c = currentColLink.C;
 			
 			currentRowLink = (DataObject)currentColLink.L;
@@ -107,6 +112,10 @@ public class LinkMatrix {
 		this.UncoverColumn(c);
 		
 		return null;
+	}
+	
+	public ArrayList<ArrayList<Integer>> DancingLinks() {//La fonction globale est surchargee, on peut l'appeler sans arguments
+		return DancingLinks(new ArrayList<DataObject>(),0,new ArrayList<ArrayList<Integer>>());
 	}
 	
 }
