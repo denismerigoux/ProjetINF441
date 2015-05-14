@@ -1,10 +1,10 @@
 
 public abstract class LinkObject {
-	//La classe abstraite LinkObject sera utilisee par les 3 types d'objetcs qui interviennent dans l'algorithme :
+	//La classe abstraite LinkObject sera utilisee par les 3 types d'objets qui interviennent dans l'algorithme :
 	//* les DataObjects qui sont les 1 dans la matrice
 	//* les ColumnObjects qui sont les en-tetes de colonne
 	//* les RootObject qui sont uniques
-	//Les champs sont publics parce que l'algorithme va directement les modifier : c'est comme c�a que marchent
+	//Les champs sont publics parce que l'algorithme va directement les modifier : c'est comme ca que marchent
 	//les liens dansants.
 	public LinkObject L;//maillon a gauche
 	public LinkObject R;//maillon a droite

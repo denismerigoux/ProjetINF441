@@ -15,4 +15,20 @@ public class DataObject extends LinkObject {
 		this.D=null;
 		this.C=C;
 	}
+	
+	//Autre constructeur, où l'on ne spécifie que la colonne
+	public DataObject(ColumnObject C){
+		this.L=null;
+		this.R=null;
+		this.U=null;
+		this.D=null;
+		this.C=C;
+	}
+	
+	@Override
+	public String toString(){
+		String s="";
+		s+="col"+C.N;
+		return s;
+	}
 }

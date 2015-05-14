@@ -1,6 +1,9 @@
-/tests/
-/DataObject.class
-/LinkObject.class
 /ColumnObject.class
-/RootObject.class
+/DataObject.class
 /LinkMatrix.class
+/LinkObject.class
+/RootObject.class
+/tests
+/FileParsing.class
+/TestParsing.class
+/DebugUtils.class

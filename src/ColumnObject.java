@@ -19,4 +19,22 @@ public class ColumnObject extends LinkObject {
 		this.S=0;
 		this.N=N;
 	}
+	
+	@Override
+	public String toString(){
+		String s="entete colonne num : "+this.N+" nb maillons : "+this.S;
+		
+		if(this.L instanceof RootObject)
+			s+=" L : root";
+		else
+			s+=" L : "+((ColumnObject)(this.L)).N;
+		if(this.R instanceof RootObject)
+			s+=" R : root";
+		else
+			s+=" R : "+((ColumnObject)this.R).N;
+		
+		return s;
+
+		
+	}
 }

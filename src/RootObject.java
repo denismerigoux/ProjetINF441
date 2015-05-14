@@ -14,4 +14,12 @@ public class RootObject extends LinkObject {
 		this.D = null;
 		this.C = null;
 	}
+	
+	@Override
+	public String toString(){
+		String s="root :: ";
+		s+="root ;  L : "+((ColumnObject)(this.L)).N+" R : "+((ColumnObject)this.R).N;
+		return s;
+
+	}
 }
