@@ -1,5 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 //Suppose qu'il y a au moins 2 colonnes...
 
@@ -9,8 +13,8 @@ public class FileParsing {
 	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie un objet LinkMatrix qui représente les données du fichier.
 	// Necessité de faire deux passages pour chainer dans les deux sens
 	
-	public static LinkMatrix readEMC(String file_name){
-		try{
+	public static LinkMatrix readEMC(String file_name) throws IOException{
+		
 			 //Création du lecteur de fichier
 	          FileReader inputFile = new FileReader("src/tests/emc/"+file_name);
 
@@ -58,17 +62,17 @@ public class FileParsing {
 	          // et on renvoie le résultat
 	          return createMatrixFromTab(tableau, nbColPrim, nbColSec, nbLignes);
 	          
-		}
+		/*}
 		catch(Exception e){
 			System.out.println("Erreur en ouvrant le fichier EMC, ou autre");
 			System.err.println(e);
 		}
-		
-		return null;
+		*/
+		//return null;
 	}
 	
 	public static LinkMatrix createMatrixFromTab(int[][] tab,int nbColPrim,int nbColSec,int nbLignes){
-		
+		// Cette méthode va créer la matrice a partir d'un tableau de 0 et de 1, et de quelques infos supplémentaires
 		//On commence par créer le root
 		RootObject root=new RootObject();
 		
@@ -77,6 +81,7 @@ public class FileParsing {
 		int N=nbColPrim+nbColSec;
 		
 		//D'abord, création des entêtes de colonnes
+		//TODO : faire la différence entre colonne primaires et secondaires
 		createColumnObjects(root, N);
 		
 		//Debug : on affiche un peu tout ça, de gauche à droite
@@ -95,8 +100,62 @@ public class FileParsing {
 		//Maintenant on linke horizontalement
 		linkHoriz(datatab);
 		
+		//Et verticalement, c'est un peu plus délicat car il faut attacher aux entêtes des colonnes
+		//Il faut passer aussi le root en argument, pour pouvoir 
+		linkVert(datatab,root);
 		
+		//Il ne reste plus qu'a renvoyer un objet linkmatrix qui encapsule tout ca
 		return new LinkMatrix(root);
+	}
+
+	private static void linkVert(DataObject[][] datatab, RootObject root) {
+		int N=datatab[0].length;
+		int l=datatab.length;
+		ColumnObject colcourante=(ColumnObject) root.R;
+		
+		//Pour chaque colonne...
+		for(int ncol=0;ncol<N;ncol++){
+			LinkedList<Integer> listeindun =new LinkedList<>();
+			for(int i=0;i<l;i++){
+				if(datatab[i][ncol]!=null)
+					listeindun.addLast(i);
+			}
+			
+			if(listeindun.isEmpty())
+				continue;
+			for(int i=0;i<listeindun.size()-1;i++){
+				datatab[listeindun.get(i)][ncol].D=datatab[listeindun.get(i+1)][ncol];
+				datatab[listeindun.get(i+1)][ncol].U=datatab[listeindun.get(i)][ncol];
+			}
+			//System.out.println("collage principal done");
+			
+
+			//On finit le travail en collant avec le haut des colonnes
+			datatab[listeindun.getFirst()][ncol].U=colcourante;
+			datatab[listeindun.getLast()][ncol].D=colcourante;
+			colcourante.D=datatab[listeindun.getFirst()][ncol];
+			colcourante.U=datatab[listeindun.getLast()][ncol];
+			/*
+			 //Use for debug : cylcing through a line
+			//Prints the whole column, starting with the header, plus the header once again at the end
+			ColumnObject c=colcourante;
+			System.out.println(c);
+			DataObject o=(DataObject) c.D;
+			for(int j=0;j<listeindun.size()-1;j++){
+				System.out.println(o+""+o.hashCode());
+				o=(DataObject)o.D;
+			}
+			System.out.println(o+""+o.hashCode());
+			System.out.println(o.D);
+			*/
+			
+			//On n'oublie pas de mettre a jour la colonne courante, supposée deja bien construite
+			if(ncol!=N-1){
+				colcourante=(ColumnObject) colcourante.R;
+			}
+			
+		}
+		
 	}
 
 	private static void linkHoriz(DataObject[][] datatab) {
@@ -105,26 +164,27 @@ public class FileParsing {
 		
 		//Pour chaque ligne...
 		for(int i=0;i<l;i++){
-			int courant=0;
-			int first=0;
-			while(datatab[i][courant]==null){
-				courant++;
-				if(courant>=N){
-					System.out.println("empty line, is it an error ?");
-					break;
-				}
+			LinkedList<Integer> listeindun =new LinkedList<>();
+			for(int j=0;j<N;j++){
+				if(datatab[i][j]!=null)
+					listeindun.addLast(j);
 			}
-			if(courant>=N)
+			if(listeindun.isEmpty())
 				continue;
-			first=courant;
-			courant++;
-			while(courant!=first){
-				courant=(courant+1)%N;
-				//TODO : finir cette méthode... et faire la même pour la version linkage vertical
+			for(int j=0;j<listeindun.size()-1;j++){
+				datatab[i][listeindun.get(j)].R=datatab[i][listeindun.get(j+1)];
+				datatab[i][listeindun.get(j+1)].L=datatab[i][listeindun.get(j)];
 			}
-			
-			
-			
+			datatab[i][listeindun.getFirst()].L=datatab[i][listeindun.getLast()];
+			datatab[i][listeindun.getLast()].R=datatab[i][listeindun.getFirst()];
+			/*
+			 //Use for debug : cylcing through a line
+			DataObject c=datatab[i][listeindun.getFirst()];
+			for(int j=0;j<listeindun.size();j++){
+				System.out.println(c);
+				c=(DataObject) c.R;
+			}
+			*/
 		}
 		
 	}

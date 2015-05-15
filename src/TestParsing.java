@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class TestParsing {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// test de lecture d'un fichier...
 		// à lancer depuis la console et non depuis le compilateur d'eclipse, puisqu'on ne peut pas spécifier des arguments pour le main (args)
 		

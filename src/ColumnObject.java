@@ -1,5 +1,5 @@
 
-public class ColumnObject extends LinkObject {
+public class ColumnObject extends LinkObject{
 	public LinkObject L;
 	public LinkObject R;
 	public LinkObject U;
