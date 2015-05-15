@@ -13,8 +13,8 @@ public class FileParsing {
 	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie un objet LinkMatrix qui représente les données du fichier.
 	// Necessité de faire deux passages pour chainer dans les deux sens
 	
-	public static LinkMatrix readEMC(String file_name) throws IOException{
-		
+	public static LinkMatrix readEMC(String file_name) {
+		try{
 			 //Création du lecteur de fichier
 	          FileReader inputFile = new FileReader("src/tests/emc/"+file_name);
 
@@ -62,13 +62,13 @@ public class FileParsing {
 	          // et on renvoie le résultat
 	          return createMatrixFromTab(tableau, nbColPrim, nbColSec, nbLignes);
 	          
-		/*}
+		}
 		catch(Exception e){
 			System.out.println("Erreur en ouvrant le fichier EMC, ou autre");
 			System.err.println(e);
 		}
-		*/
-		//return null;
+		
+		return null;
 	}
 	
 	public static LinkMatrix createMatrixFromTab(int[][] tab,int nbColPrim,int nbColSec,int nbLignes){
