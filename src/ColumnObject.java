@@ -1,10 +1,6 @@
 
 public class ColumnObject extends LinkObject{
-	public LinkObject L;
-	public LinkObject R;
-	public LinkObject U;
-	public LinkObject D;
-	public final ColumnObject C;//La colonne a laquelle appartient l'objet ne change pas
+	
 	public int S;//nombre de maillons dans la colonne
 	public int N;//numero qui identifie la colonne. La colonne de gauche est 1 (et le Root est 0 en fait)
 	

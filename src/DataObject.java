@@ -1,10 +1,5 @@
 
 public class DataObject extends LinkObject {
-	public LinkObject L;
-	public LinkObject R;
-	public LinkObject U;
-	public LinkObject D;
-	public final ColumnObject C;//La colonne a laquelle appartient l'objet ne change pas
 	
 	public DataObject(LinkObject L, LinkObject U, ColumnObject C) {
 		//on va lire le fichier de haut en bas de gauche a droite donc au moment de construire
@@ -16,7 +11,7 @@ public class DataObject extends LinkObject {
 		this.C=C;
 	}
 	
-	//Autre constructeur, où l'on ne spécifie que la colonne
+	//Autre constructeur, oï¿½ l'on ne spï¿½cifie que la colonne
 	public DataObject(ColumnObject C){
 		this.L=null;
 		this.R=null;
