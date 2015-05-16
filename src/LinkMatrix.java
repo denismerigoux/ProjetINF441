@@ -85,7 +85,12 @@ public class LinkMatrix {
 		
 		LinkObject currentColLink = c.D;
 		while (currentColLink instanceof DataObject) {
-			currentSolution.set(k, (DataObject)currentColLink);//On ajoute l'element au tableau qui stocke la solution en cours
+			
+			if (currentSolution.size() > k) {
+				currentSolution.set(k, (DataObject)currentColLink);//On ajoute l'element au tableau qui stocke la solution en cours
+			} else {
+				currentSolution.add((DataObject)currentColLink);
+			}
 			
 			DataObject currentRowLink = (DataObject)currentColLink.R;
 			while (currentRowLink != currentColLink) {
@@ -94,7 +99,7 @@ public class LinkMatrix {
 				currentRowLink = (DataObject)currentRowLink.R;
 			}
 			
-			solutions = DancingLinks(currentSolution, k+1, solutions);
+			DancingLinks(currentSolution, k+1, solutions);
 			
 			currentColLink = currentSolution.get(k);
 			c = currentColLink.C;
@@ -111,7 +116,7 @@ public class LinkMatrix {
 		
 		this.UncoverColumn(c);
 		
-		return null;
+		return solutions;
 	}
 	
 	public ArrayList<ArrayList<Integer>> DancingLinks() {//La fonction globale est surchargee, on peut l'appeler sans arguments
