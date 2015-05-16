@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 //Suppose qu'il y a au moins 2 colonnes...
 
-public class FileParsing {
+public class EMCFileParsing {
 
 	// Classe consacrée à la lecture des fichiers passés en entrée.
 	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie un objet LinkMatrix qui représente les données du fichier.
@@ -95,7 +95,9 @@ public class FileParsing {
 		
 		//méthode bien brutale : on crée d'abord un tableau d'objets DataTab, ou de Null (suivant 0 ou 1 dans le tableau de base)
 		DataObject[][] datatab=createDataTab(root, tab);
-		DebugUtils.affDataTab(datatab, nbLignes, N);
+		
+		//Affichage - Debug only
+		//DebugUtils.affDataTab(datatab, nbLignes, N);
 		
 		//Maintenant on linke horizontalement
 		linkHoriz(datatab);
@@ -111,7 +113,7 @@ public class FileParsing {
 	private static void linkVert(DataObject[][] datatab, RootObject root) {
 		int N=datatab[0].length;
 		int l=datatab.length;
-		ColumnObject colcourante=(ColumnObject) root.R;
+		LinkObject colcourante=root.R;
 		
 		//Pour chaque colonne...
 		for(int ncol=0;ncol<N;ncol++){
@@ -135,24 +137,21 @@ public class FileParsing {
 			datatab[listeindun.getLast()][ncol].D=colcourante;
 			colcourante.D=datatab[listeindun.getFirst()][ncol];
 			colcourante.U=datatab[listeindun.getLast()][ncol];
-			/*
+			
 			 //Use for debug : cylcing through a line
 			//Prints the whole column, starting with the header, plus the header once again at the end
-			ColumnObject c=colcourante;
-			System.out.println(c);
-			DataObject o=(DataObject) c.D;
-			for(int j=0;j<listeindun.size()-1;j++){
-				System.out.println(o+""+o.hashCode());
-				o=(DataObject)o.D;
+			/*
+			LinkObject c=colcourante;
+			for(int j=0;j<listeindun.size()+2;j++){
+				System.out.println(c+""+c.hashCode());
+				c=c.D;
 			}
-			System.out.println(o+""+o.hashCode());
-			System.out.println(o.D);
 			*/
 			
 			//On n'oublie pas de mettre a jour la colonne courante, supposée deja bien construite
-			if(ncol!=N-1){
-				colcourante=(ColumnObject) colcourante.R;
-			}
+			
+			colcourante=colcourante.R;
+			
 			
 		}
 		
@@ -177,12 +176,13 @@ public class FileParsing {
 			}
 			datatab[i][listeindun.getFirst()].L=datatab[i][listeindun.getLast()];
 			datatab[i][listeindun.getLast()].R=datatab[i][listeindun.getFirst()];
-			/*
+			
 			 //Use for debug : cylcing through a line
-			DataObject c=datatab[i][listeindun.getFirst()];
+			/*
+			LinkObject c=datatab[i][listeindun.getFirst()];
 			for(int j=0;j<listeindun.size();j++){
 				System.out.println(c);
-				c=(DataObject) c.R;
+				c= c.R;
 			}
 			*/
 		}

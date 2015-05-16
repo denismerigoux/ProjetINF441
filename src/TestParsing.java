@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class TestParsing {
 	public static void main(String[] args) {
@@ -20,7 +18,7 @@ public class TestParsing {
 		//à la main dans FileParsing au début, en mettant ou non src/
 		//Pour lancer depuis eclipse : (commenter plus haut aussi)
 		String file_name="knuth.txt";
-		FileParsing.readEMC(file_name);
+		EMCFileParsing.readEMC(file_name);
 		
 	}
 }

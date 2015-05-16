@@ -4,11 +4,11 @@ public class DebugUtils {
 	//Classe consacrée à des méthodes statiques permettant d'afficher des bouts de la matrice pour débuguer lors de sa création
 	public static void printColumnsOnly(RootObject root, int N){
 		System.out.println(root);
-		ColumnObject colcour=(ColumnObject) root.R;
+		LinkObject colcour=root.R;
 		
 		for(int i=1;i<N;i++){
 			System.out.println(colcour);
-			colcour=(ColumnObject) colcour.R;
+			colcour=colcour.R;
 		}
 		System.out.println(colcour);
 	}
