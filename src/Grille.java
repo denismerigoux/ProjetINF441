@@ -17,6 +17,7 @@ public class Grille {
 	public Grille(int nbCol,int nbLigne, int[][] g){//Constructeur pour un quadrillage éventuellement creux
 		this.nbCol=nbCol;
 		this.nbLigne=nbLigne;
+		this.grid=new int[nbCol][nbLigne];
 		for(int i=0;i<nbLigne;i++){
 			for(int j=0;j<nbCol;j++){
 				if(g[i][j]==0)
@@ -37,10 +38,21 @@ public class Grille {
 				else
 					s+=" ";
 			}
+			s+="\n";
 		}
 		return s;
 	}
 	
-	
+	public boolean admissiblePositionForPiece(Piece p, int i,int j){
+		//Renvoie True ssi la piece p peut être posée à la position i, j pour son coin en haut à gauche dans la grille
+		//Coin en haut a gauche : 0, 0
+		//Renvoie False par exemple si la piece est trop grande, ou interfere avec les cases évidées
+		//Sera utile pour générer l'ensemble des lignes de la matrice qu'on enverra ensuite à l'algo DancingLinks
+		if(i>=this.nbLigne||j>=this.nbCol)
+			return false;
+		
+		
+		return true;
+	}
 
 }

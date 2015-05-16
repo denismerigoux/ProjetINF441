@@ -17,8 +17,12 @@ public class TestParsing {
 		//depuis eclipse du repertoire parent, donc il faut changer
 		//à la main dans FileParsing au début, en mettant ou non src/
 		//Pour lancer depuis eclipse : (commenter plus haut aussi)
+		/*
 		String file_name="knuth.txt";
 		EMCFileParsing.readEMC(file_name);
+		*/
+		String file_name="scott.txt";
+		PavageFileParsing.readPavage(file_name);
 		
 	}
 }
