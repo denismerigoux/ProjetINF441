@@ -30,6 +30,17 @@ public class DebugUtils {
       	  System.out.println();
         }
 	}
+
+	public static void affTab(int[][] tableau) {
+		int nbLignes=tableau.length;
+		int nbCol=tableau[0].length;
+		for(int i=0;i<nbLignes;i++){
+	      	  for(int j=0;j<nbCol;j++){
+	      		  System.out.print(tableau[i][j]);
+	      	  }
+	      	  System.out.println();
+	        }
+	}
 	
 	
 }
