@@ -19,7 +19,7 @@ public class Grille {
 	public Grille(int nbCol,int nbLigne, int[][] g){//Constructeur pour un quadrillage éventuellement creux
 		this.nbCol=nbCol;
 		this.nbLigne=nbLigne;
-		this.grid=new int[nbCol][nbLigne];
+		this.grid=new int[nbLigne][nbCol];
 		for(int i=0;i<nbLigne;i++){
 			for(int j=0;j<nbCol;j++){
 				if(g[i][j]==0)

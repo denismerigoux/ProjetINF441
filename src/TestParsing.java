@@ -1,6 +1,6 @@
 
 public class TestParsing {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// test de lecture d'un fichier...
 		// à lancer depuis la console et non depuis le compilateur d'eclipse, puisqu'on ne peut pas spécifier des arguments pour le main (args)
 		
@@ -21,7 +21,7 @@ public class TestParsing {
 		String file_name="knuth.txt";
 		EMCFileParsing.readEMC(file_name);
 		*/
-		String file_name="scott.txt";
+		String file_name="tetris_5_8.txt";
 		LinkMatrix matrix=PavageFileParsing.readPavage(file_name);
 		int nbSol=matrix.DancingLinks().size();
 		System.out.println(nbSol);

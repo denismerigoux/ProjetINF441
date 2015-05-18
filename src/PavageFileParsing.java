@@ -1,12 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedList;
 
 
 public class PavageFileParsing {
 
-	public static LinkMatrix readPavage(String file_name) {
-		try{
+	public static LinkMatrix readPavage(String file_name) throws Exception {
+	//	try{
 			 //Création du lecteur de fichier
 	          FileReader inputFile = new FileReader("src/tests/pavage/"+file_name);
 
@@ -101,13 +102,13 @@ public class PavageFileParsing {
 	          // et on renvoie le résultat
 	          return matrice;
 	          
-		}
+	/*	}
 		catch(Exception e){
 			System.out.println("Erreur en ouvrant le fichier Pavage, ou autre");
 			System.err.println(e);
 		}
 		
-		return null;
+		return null;*/
 	}
 
 	public static int[][] generateLinesFromPieces(Piece[] pieces, Grille grid) {
