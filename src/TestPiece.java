@@ -44,7 +44,8 @@ public class TestPiece {
 		System.out.println(l.numberOfDifferentTransformations());
 		//for(Piece pp : l.getListOfTransformations())
 		//	System.out.println(pp);
-		Grille g=new Grille(5, 5);
+		int[][] trou={{0,0,0},{0,2,0},{0,0,0}};
+		Grille g=new Grille(3, 3, trou);
 		Piece[] pieces=new Piece[2];
 		pieces[0]=point;
 		pieces[1]=point2;

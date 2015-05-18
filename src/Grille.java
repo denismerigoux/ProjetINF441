@@ -106,17 +106,19 @@ public class Grille {
 		int l=0;
 		//Méthode bourrine : on compte le nombre de cases valides avant, parcours en ligne de gauche a droite de haut en bas
 		//TODO : a améliorer
-		//TODO : BUG : ne marche pas s'il y a des trous dans la grille, en l'état du moins !
+		//Ce n'est plus bugé, mais ca recalcule beaucoup trop souvent
 		for(int x=0;x<=i;x++){
-			for(int y=0;y<=j;y++){
+			for(int y=0;y<this.nbCol;y++){
 				if(this.grid[x][y]==0)
 					l++;
+				if(i==x&&y==j)
+					break;
 				
 			}
 		}
 		l--;
-		l=i*this.nbCol+j;
-		System.out.println("("+i+","+j+") -> "+l);
+		//For debug
+		//System.out.println("("+i+","+j+") -> "+l);
 		return l;
 	}
 }

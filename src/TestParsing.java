@@ -22,7 +22,8 @@ public class TestParsing {
 		EMCFileParsing.readEMC(file_name);
 		*/
 		String file_name="scott.txt";
-		PavageFileParsing.readPavage(file_name);
-		
+		LinkMatrix matrix=PavageFileParsing.readPavage(file_name);
+		int nbSol=matrix.DancingLinks().size();
+		System.out.println(nbSol);
 	}
 }
