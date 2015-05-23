@@ -3,13 +3,13 @@
 public class TestPiece {
 
 	public static void main(String[] args) {
-		int[][] tab={{0,0,1},{0,0,1},{1,1,1}};
-		int [][] tab2={{0,1,1},{0,0,1},{1,1,1}};
-		int[][] petittab={{1,0},{1,0},{1,1}};
-		int[][] line={{1},{1},{1},{1},{1},{1}};
-		Piece r=new Piece(petittab);
-		Piece p=new Piece(3, tab);
-		Piece q=new Piece(3,tab2);
+		//int[][] tab={{0,0,1},{0,0,1},{1,1,1}};
+		//int [][] tab2={{0,1,1},{0,0,1},{1,1,1}};
+		//int[][] petittab={{1,0},{1,0},{1,1}};
+		//int[][] line={{1},{1},{1},{1},{1},{1}};
+		//Piece r=new Piece(petittab);
+		//Piece p=new Piece(3, tab);
+		//Piece q=new Piece(3,tab2);
 		int[][] L={{1,0,0,0},{1,0,0,0},{1,0,0,0},{1,1,1,0}};
 		int[][] poi={{1}};
 	//	System.out.println(q);
@@ -49,7 +49,7 @@ public class TestPiece {
 		Piece[] pieces=new Piece[2];
 		pieces[0]=point;
 		pieces[1]=point2;
-		DebugUtils.affTab(PavageFileParsing.generateLinesFromPieces(pieces, g));
+		DebugUtils.affTab(PavageParsing.generateLinesFromPieces(pieces, g));
 		g.getCoveredPositions(l, 1, 2);
 		
 	}
