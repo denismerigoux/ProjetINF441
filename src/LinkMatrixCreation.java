@@ -3,32 +3,32 @@ import java.util.LinkedList;
 
 public class LinkMatrixCreation {
 	
-	//Classe statique d'utilisation commune pour les deux parties : EMC et Pavage : à chaque fois on lit le fichier, puis on obtient un tableau d'entier
-	// Cette classe sert alors à créer la LinkMatrix à partir de ce tableau d'entiers
+	//Classe statique d'utilisation commune pour les deux parties : EMC et Pavage : ï¿½ chaque fois on lit le fichier, puis on obtient un tableau d'entier
+	// Cette classe sert alors ï¿½ crï¿½er la LinkMatrix ï¿½ partir de ce tableau d'entiers
 	
 	public static LinkMatrix createMatrixFromTab(int[][] tab,int nbColPrim,int nbColSec,int nbLignes){
-		// Cette méthode va créer la matrice a partir d'un tableau de 0 et de 1, et de quelques infos supplémentaires
-		//On commence par créer le root
+		// Cette mï¿½thode va crï¿½er la matrice a partir d'un tableau de 0 et de 1, et de quelques infos supplï¿½mentaires
+		//On commence par crï¿½er le root
 		RootObject root=new RootObject();
 		
 		
 		
 		int N=nbColPrim+nbColSec;
 		
-		//D'abord, création des entêtes de colonnes
-		//TODO : faire la différence entre colonne primaires et secondaires
+		//D'abord, crï¿½ation des entï¿½tes de colonnes
+		//TODO : faire la diffÃ©rence entre colonne primaires et secondaires
 		createColumnObjects(root, N);
 		
-		//Debug : on affiche un peu tout ça, de gauche à droite
+		//Debug : on affiche un peu tout ï¿½a, de gauche ï¿½ droite
 		//DebugUtils.printColumnsOnly(root, N);
 		
-		//A ce stade, les entêtes des colonnes sont crées
-		// On compte d'abord les occurences de 1 dans chaque colonne, puis on met à jour le champ .S
+		//A ce stade, les entï¿½tes des colonnes sont crï¿½es
+		// On compte d'abord les occurences de 1 dans chaque colonne, puis on met ï¿½ jour le champ .S
 		updateCount(root, N, tab);
 		
-		DebugUtils.printColumnsOnly(root, N);
+		//DebugUtils.printColumnsOnly(root, N);
 		
-		//méthode bien brutale : on crée d'abord un tableau d'objets DataTab, ou de Null (suivant 0 ou 1 dans le tableau de base)
+		//mï¿½thode bien brutale : on crï¿½e d'abord un tableau d'objets DataTab, ou de Null (suivant 0 ou 1 dans le tableau de base)
 		DataObject[][] datatab=createDataTab(root, tab);
 		
 		//Affichage - Debug only
@@ -37,12 +37,12 @@ public class LinkMatrixCreation {
 		//Maintenant on linke horizontalement
 		linkHoriz(datatab);
 		
-		//Et verticalement, c'est un peu plus délicat car il faut attacher aux entêtes des colonnes
+		//Et verticalement, c'est un peu plus dï¿½licat car il faut attacher aux entï¿½tes des colonnes
 		//Il faut passer aussi le root en argument, pour pouvoir 
 		linkVert(datatab,root);
 		
 		//Il ne reste plus qu'a renvoyer un objet linkmatrix qui encapsule tout ca
-		return new LinkMatrix(root);
+		return new LinkMatrix(root,nbLignes,N);
 	}
 
 	private static void linkVert(DataObject[][] datatab, RootObject root) {
@@ -83,7 +83,7 @@ public class LinkMatrixCreation {
 			}
 			*/
 			
-			//On n'oublie pas de mettre a jour la colonne courante, supposée deja bien construite
+			//On n'oublie pas de mettre a jour la colonne courante, supposï¿½e deja bien construite
 			
 			colcourante=colcourante.R;
 			
@@ -125,7 +125,7 @@ public class LinkMatrixCreation {
 	}
 
 	private static DataObject[][] createDataTab(RootObject root, int[][] tab) {
-		//Cette méthode renvoie un tableau de DataObjects, non chainés entre eux, mais dont les colonnes entêtes sont bien initialisées
+		//Cette mï¿½thode renvoie un tableau de DataObjects, non chainï¿½s entre eux, mais dont les colonnes entï¿½tes sont bien initialisï¿½es
 		int N=tab[0].length;
 		int l=tab.length;
 		DataObject[][] datatab=new DataObject[l][N];
@@ -144,7 +144,7 @@ public class LinkMatrixCreation {
 			
 			colcour=(ColumnObject) colcour.R;
 		}
-		//Cas à part à la fin : la dernière colonne
+		//Cas ï¿½ part ï¿½ la fin : la derniï¿½re colonne
 		for(int i=0;i<l;i++){
 			if(tab[i][N-1]==1){
 				datatab[i][N-1]=new DataObject(colcour);
@@ -158,7 +158,7 @@ public class LinkMatrixCreation {
 	}
 
 	private static int[] columnsCount(int[][] tab) {
-		//méthode permettant de calculer le nombre d'occurences de 1 dans les différentes colonnes
+		//mÃ©thode permettant de calculer le nombre d'occurences de 1 dans les diffï¿½rentes colonnes
 		int N=tab[0].length;
 		int [] counts=new int[N];
 		for(int j=0;j<N;j++){
@@ -173,8 +173,8 @@ public class LinkMatrixCreation {
 	}
 	
 	private static void createColumnObjects(RootObject root,int N){ 
-		// Méthode permettant de créer les entetes de colonnes
-		//On crée la première colonne
+		// MÃ©thode permettant de crÃ©er les entetes de colonnes
+		//On crÃ©e la premiï¿½re colonne
 				ColumnObject colcourante=new ColumnObject(1, root);
 				root.R=colcourante;
 
@@ -190,14 +190,14 @@ public class LinkMatrixCreation {
 					//On passe au suivant
 					colcourante=nouvellecol;
 				}
-				//Reste des raccordements à faire
+				//Reste des raccordements ï¿½ faire
 				// A ce moment, colcourante pointe sur le dernier maillon
 				root.L=colcourante;
 				colcourante.R=root;
 	}
 	
 	private static void updateCount(RootObject root,int N, int[][] tab){
-		//méthode permettant de mettre à jour le champ S des différentes colonnes
+		//mÃ©thode permettant de mettre ï¿½ jour le champ S des diffï¿½rentes colonnes
 		
 		ColumnObject colcourante;
 		int[] counts=columnsCount(tab);

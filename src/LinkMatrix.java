@@ -1,14 +1,19 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LinkMatrix {
 	public RootObject root;
+	public int rowNumber;//nombre de lignes
+	public int columnNumber;//nombre de colonnes;
 	
 	
-	public LinkMatrix(RootObject root) {
+	public LinkMatrix(RootObject root, int rowNumber, int columnNumber) {
 		this.root = root;
+		this.rowNumber = rowNumber;
+		this.columnNumber = columnNumber;
 	}
 	
-	public ColumnObject FindMinimalSizeColumn() {
+	private ColumnObject FindMinimalSizeColumn() {
 		ColumnObject MinColumn = null;
 		int min = Integer.MAX_VALUE;
 		LinkObject currentLink = this.root.R;
@@ -25,7 +30,7 @@ public class LinkMatrix {
 		return MinColumn;
 	}
 	
-	public void CoverColumn(ColumnObject c) {
+	private void CoverColumn(ColumnObject c) {
 		c.R.L = c.L;//on enleve c de la liste des colonnes
 		c.L.R = c.R;
 		
@@ -44,7 +49,7 @@ public class LinkMatrix {
 		}
 	}
 	
-	public void UncoverColumn(ColumnObject c) {		
+	private void UncoverColumn(ColumnObject c) {		
 		LinkObject currentColLink = c.U;
 		while (currentColLink instanceof DataObject) {
 			DataObject currentRowLink = (DataObject)currentColLink.L;
@@ -62,18 +67,14 @@ public class LinkMatrix {
 		c.L.R = c;
 	}
 	
-	public ArrayList<ArrayList<Integer>> DancingLinks(ArrayList<DataObject> currentSolution, int k, ArrayList<ArrayList<Integer>> solutions) {
+	private ArrayList<ArrayList<DataObject>> DancingLinks(ArrayList<DataObject> currentSolution, int k, ArrayList<ArrayList<DataObject>> solutions) {
 		//La fonction est recursive, il faut d'abord l'appeler avec k=0 et des tableaux vides pour solutions et currentSolution
 		//Elle outpute une liste iterative contenant des listes iteratives qui sont les numeros des colonnes retenues pour chacune des solutions
 		
 		//Si root.R = root, la matrice est vide et on ajoute la solution en cours au tableau des solutions
 		if (this.root.R == this.root) {
 			//Mais avant on transforme les DataObjects en le numero de leur colonne pour stocker ca plus facilement.
-			ArrayList<Integer> printedCurrentSolution = new ArrayList<Integer>();
-			for (DataObject o : currentSolution) {
-				printedCurrentSolution.add(o.C.N);
-			}
-			solutions.add(printedCurrentSolution);
+			solutions.add(currentSolution);
 			return solutions;
 		}
 		
@@ -119,8 +120,43 @@ public class LinkMatrix {
 		return solutions;
 	}
 	
-	public ArrayList<ArrayList<Integer>> DancingLinks() {//La fonction globale est surchargee, on peut l'appeler sans arguments
-		return DancingLinks(new ArrayList<DataObject>(),0,new ArrayList<ArrayList<Integer>>());
+	public ArrayList<ArrayList<DataObject>> DancingLinks() {//La fonction globale est surchargee, on peut l'appeler sans arguments
+		return DancingLinks(new ArrayList<DataObject>(),0,new ArrayList<ArrayList<DataObject>>());
 	}
 	
+	public void PrintSolution(ArrayList<DataObject> solution) {//la fonction prend en argument la largeur de la matrice
+		for (DataObject O : solution) {//chaque O est sur une ligne différente de la solution
+			//On créé un tableau qui représente la ligne
+			boolean[] currentLine = new boolean[this.columnNumber];
+			Arrays.fill(currentLine, false);//true si 1, false si 0
+			currentLine[O.C.N-1] =true;//Attention, les colonnes sont numérotées de 1 à columnNumber et pas à partir de 0
+			DataObject currentLink = O;
+			
+			while (currentLink.R != O) {
+				currentLine[currentLink.R.C.N-1] = true;//Attention, les colonnes sont numérotées de 1 à columnNumber et pas à partir de 0
+				currentLink = (DataObject)currentLink.R;
+			}
+			for(int i=0;i<this.columnNumber;i++) {
+				if (currentLine[i]) {
+					System.out.print("1");
+				} else {
+					System.out.print("0");
+				}
+			}
+			System.out.println();			
+		}
+	}
+	
+	public void PrintSolutions(ArrayList<ArrayList<DataObject>> solutions) {//affiche toutes les solutions
+		System.out.println("Le problème admet "+solutions.size()+" solutions.");
+		for (int i=0;i<solutions.size();i++) {
+			System.out.println(">>Solution n°"+i+" :");
+			this.PrintSolution(solutions.get(i));
+		}
+	}
+	
+	public void DancingLinksSolutions() {
+		PrintSolutions(this.DancingLinks());
+	}
+
 }

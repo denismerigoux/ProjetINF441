@@ -6,23 +6,23 @@ import java.util.LinkedList;
 
 public class EMCFileParsing {
 
-	// Classe consacrée à la lecture des fichiers passés en entrée.
-	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie un objet LinkMatrix qui représente les données du fichier.
-	// Necessité de faire deux passages pour chainer dans les deux sens
+	// Classe consacrï¿½e ï¿½ la lecture des fichiers passï¿½s en entrï¿½e.
+	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie un objet LinkMatrix qui reprï¿½sente les donnï¿½es du fichier.
+	// Necessitï¿½ de faire deux passages pour chainer dans les deux sens
 	
 	public static LinkMatrix readEMC(String file_name) {
 		try{
-			 //Création du lecteur de fichier
+			 //Crï¿½ation du lecteur de fichier
 	          FileReader inputFile = new FileReader("src/tests/emc/"+file_name);
 
-	          //Création du buffer de lecture à partir du FileReader
+	          //Crï¿½ation du buffer de lecture ï¿½ partir du FileReader
 	          // Maintenant on peut faire .readLine() pour obtenir une ligne 
 	          BufferedReader bufferReader = new BufferedReader(inputFile);
 
 	          // String dans lequel on va stocker les lignes du fichier
 	          String line;
 	          
-	          // On lit la première ligne : nombre de colonnes primaires
+	          // On lit la premiï¿½re ligne : nombre de colonnes primaires
 	          line=bufferReader.readLine();
 	          int nbColPrim=Integer.parseInt(line);
 	          
@@ -48,15 +48,16 @@ public class EMCFileParsing {
 	          
 
 	          //Debugage : affichage du tableau
+	          System.out.println("Affichage de la matrice initiale :");
 	          DebugUtils.affTab(tableau, nbLignes, nbColPrim+nbColSec);
 	          
 	          bufferReader.close();
 	          inputFile.close();
-	          System.out.println("closing buffer, successful read");
-	          System.out.println("creating matrix from tab...");
+	          //System.out.println("closing buffer, successful read");
+	          System.out.println("Conversion de la matrice en objet utilisable par l'algorithme.");
 	          
-	          //On crée ensuite la matrice à partir du tableau
-	          // et on renvoie le résultat
+	          //On crï¿½e ensuite la matrice ï¿½ partir du tableau
+	          // et on renvoie le rï¿½sultat
 	          return LinkMatrixCreation.createMatrixFromTab(tableau, nbColPrim, nbColSec, nbLignes);
 	          
 		}
