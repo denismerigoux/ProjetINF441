@@ -5,7 +5,8 @@ import java.util.LinkedList;
 
 public class PavageParsing {
 
-	public static LinkMatrix readPavageFromStandardInput() throws Exception {
+	public static LinkMatrix readPavageFromStandardInput() {
+		try{
 		// Cr�ation du buffer de lecture � partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -13,10 +14,14 @@ public class PavageParsing {
 		LinkMatrix result = readPavage(bufferReader);
 		isr.close();
 		return result;
+		} catch (Exception e) {
+			System.out.println("Erreur lors de la lecture de l'entrée.");
+		}
+		return null;
 	}
 
-	public static LinkMatrix readPavageFromFile(String file_name)
-			throws Exception {
+	public static LinkMatrix readPavageFromFile(String file_name) {
+		try{
 		// Création du lecteur de fichier
 		FileReader inputFile = new FileReader("src/tests/pavage/" + file_name);
 
@@ -26,105 +31,111 @@ public class PavageParsing {
 		LinkMatrix result = readPavage(bufferReader);
 		inputFile.close();
 		return result;
+		} catch (Exception e) {
+			System.out.println("Erreur : fichier introuvable ou autre");
+		}
+		return null;
 	}
 
-	private static LinkMatrix readPavage(BufferedReader bufferReader)
-			throws Exception {
-		// try{
-		// String dans lequel on va stocker les lignes du fichier
-		String line;
+	private static LinkMatrix readPavage(BufferedReader bufferReader) {
+		try {
+			// String dans lequel on va stocker les lignes du fichier
+			String line;
 
-		// On lit la première ligne : nombre de colonnes de la grille
-		line = bufferReader.readLine();
-		int nbColGrille = Integer.parseInt(line);
-
-		// On lit le nombre de lignes de la grille
-		line = bufferReader.readLine();
-		int nbLignesGrille = Integer.parseInt(line);
-
-		// On remplit d'abord un tableau d'entier avec ce qui est lu dans le
-		// fichier
-		// Ce tableau sera la grille
-		int[][] gridd = new int[nbLignesGrille][nbColGrille];
-		int i = 0;
-		line = bufferReader.readLine();
-		while (i < nbLignesGrille) {
-			for (int j = 0; j < nbColGrille; j++) {
-				String c = Character.toString(line.charAt(j));
-				if (c.equals("*")) {
-					gridd[i][j] = 0;
-				} else {
-					gridd[i][j] = 1;
-				}
-			}
-			i++;
+			// On lit la première ligne : nombre de colonnes de la grille
 			line = bufferReader.readLine();
-		}
+			int nbColGrille = Integer.parseInt(line);
 
-		// On crée la grille
-		Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
-
-		// Debug only : on affiche la grille
-		System.out.println("Affichage de la grille à paver :");
-		System.out.println(grid);
-		System.out.println("Il y a "+grid.numberOfValidCases()+" cases à paver dans cette grille.");
-		// Maintenant on lit le nombre de pièces
-		int nbPieces = Integer.parseInt(line);
-		System.out.println("Le nombre de pièce est "+nbPieces+".");
-
-		// On va stocker les pièces dans un tableau :
-		Piece[] pieces = new Piece[nbPieces];
-
-		// On lit chaque pièce et on remplit le tableau de pièces
-		for (int numPiece = 0; numPiece < nbPieces; numPiece++) {
+			// On lit le nombre de lignes de la grille
 			line = bufferReader.readLine();
-			int nc = Integer.parseInt(line);
+			int nbLignesGrille = Integer.parseInt(line);
+
+			// On remplit d'abord un tableau d'entier avec ce qui est lu dans le
+			// fichier
+			// Ce tableau sera la grille
+			int[][] gridd = new int[nbLignesGrille][nbColGrille];
+			int i = 0;
 			line = bufferReader.readLine();
-			int nl = Integer.parseInt(line);
-			int[][] motif = new int[nl][nc];
-			for (int nlp = 0; nlp < nl; nlp++) {
-				line = bufferReader.readLine();
-				for (int j = 0; j < nc; j++) {
+			while (i < nbLignesGrille) {
+				for (int j = 0; j < nbColGrille; j++) {
 					String c = Character.toString(line.charAt(j));
 					if (c.equals("*")) {
-						motif[nlp][j] = 1;
+						gridd[i][j] = 0;
 					} else {
-						motif[nlp][j] = 0;
+						gridd[i][j] = 1;
 					}
 				}
-
+				i++;
+				line = bufferReader.readLine();
 			}
-			pieces[numPiece] = new Piece(motif);
-			// Debug only : print each piece
-			// System.out.println(pieces[numPiece]);
+
+			// On crée la grille
+			Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
+
+			// Debug only : on affiche la grille
+			System.out.println("Affichage de la grille à paver :");
+			System.out.println(grid);
+			System.out.println("Il y a " + grid.numberOfValidCases()
+					+ " cases à paver dans cette grille.");
+			// Maintenant on lit le nombre de pièces
+			int nbPieces = Integer.parseInt(line);
+			System.out.println("Le nombre de pièce est " + nbPieces + ".");
+
+			// On va stocker les pièces dans un tableau :
+			Piece[] pieces = new Piece[nbPieces];
+
+			// On lit chaque pièce et on remplit le tableau de pièces
+			for (int numPiece = 0; numPiece < nbPieces; numPiece++) {
+				line = bufferReader.readLine();
+				int nc = Integer.parseInt(line);
+				line = bufferReader.readLine();
+				int nl = Integer.parseInt(line);
+				int[][] motif = new int[nl][nc];
+				for (int nlp = 0; nlp < nl; nlp++) {
+					line = bufferReader.readLine();
+					for (int j = 0; j < nc; j++) {
+						String c = Character.toString(line.charAt(j));
+						if (c.equals("*")) {
+							motif[nlp][j] = 1;
+						} else {
+							motif[nlp][j] = 0;
+						}
+					}
+
+				}
+				pieces[numPiece] = new Piece(motif);
+				// Debug only : print each piece
+				// System.out.println(pieces[numPiece]);
+			}
+
+			System.out.println("Génération de la matrice EMC");
+			// Génération du tableau selon toutes les positions possibles de
+			// chaque
+			// piece
+			int[][] allLines = generateLinesFromPieces(pieces, grid);
+			System.out.println("La matrice comporte " + allLines.length
+					+ " lignes et " + allLines[0].length + " colonnes.");
+
+			// DebugUtils.affTab(allLines);
+			// Il ne reste qu'à créer la LinkMatrix...
+			LinkMatrix matrice = LinkMatrixCreation.createMatrixFromTab(
+					allLines, allLines[0].length, 0, allLines.length);
+
+			// On finalise
+			bufferReader.close();
+			// System.out.println("closing buffer, successful read");
+
+			// On crée ensuite la matrice à partir du tableau
+			// et on renvoie le résultat
+			return matrice;
+
+		} catch (Exception e) {
+			System.out.println("Erreur en ouvrant le fichier Pavage, ou autre");
+			System.err.println(e);
 		}
 
-		System.out.println("Génération de la matrice EMC");
-		// Génération du tableau selon toutes les positions possibles de chaque
-		// piece
-		int[][] allLines = generateLinesFromPieces(pieces, grid);
-		System.out.println("La matrice comporte "+allLines.length+" lignes et "+allLines[0].length+" colonnes.");
+		return null;
 
-		// DebugUtils.affTab(allLines);
-		// Il ne reste qu'à créer la LinkMatrix...
-		LinkMatrix matrice = LinkMatrixCreation.createMatrixFromTab(allLines,
-				allLines[0].length, 0, allLines.length);
-
-		// On finalise
-		bufferReader.close();
-		//System.out.println("closing buffer, successful read");
-
-		// On crée ensuite la matrice à partir du tableau
-		// et on renvoie le résultat
-		return matrice;
-
-		/*
-		 * } catch(Exception e){
-		 * System.out.println("Erreur en ouvrant le fichier Pavage, ou autre");
-		 * System.err.println(e); }
-		 * 
-		 * return null;
-		 */
 	}
 
 	public static int[][] generateLinesFromPieces(Piece[] pieces, Grille grid) {
@@ -149,8 +160,8 @@ public class PavageParsing {
 		for (int numPiece = 0; numPiece < pieces.length; numPiece++) {
 			LinkedList<Piece> genpieces = pieces[numPiece]
 					.getListOfTransformations();
-			//System.out.println("treating piece \n" + pieces[numPiece]
-					//+ " transfo : " + genpieces.size());
+			// System.out.println("treating piece \n" + pieces[numPiece]
+			// + " transfo : " + genpieces.size());
 			// On récupère les différentes transformations de la piece de départ
 			// Ensuite on les parcourt toutes
 			for (Piece p : genpieces) {
