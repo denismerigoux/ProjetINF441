@@ -8,7 +8,8 @@ public class Grille {
 	int nbCol;
 	int nbLigne;
 	private final int[][] grid;
-
+	private int[][] coordconv; //Ce tableau stocke à la case i,j -1 si inaccessible, sa coord linéaire sinon
+	private int[][] coordconvinv; //Ce tableau stocke à la case l le coupe i,j correspondant
 	// Convention interne de reprï¿½sentation : 0 si la case est accessible,
 	// n'importe quoi d'autre si elle ne l'est pas (ie quadrillage ï¿½vidï¿½)
 
@@ -17,6 +18,30 @@ public class Grille {
 		this.nbCol = nbCol;
 		this.nbLigne = nbLigne;
 		this.grid = new int[nbLigne][nbCol];
+		this.coordconv=new int[nbLigne][nbCol];
+		this.coordconvinv=new int[this.numberOfValidCases()][2];
+		int l=0;
+		for (int i = 0; i < nbLigne; i++) {
+			for (int j = 0; j < nbCol; j++) {
+				coordconv[i][j]=l;
+				if(grid[i][j]==0)
+					l++;
+				else
+					coordconv[i][j]=-1;
+			}
+		}
+		//DebugUtils.affTab(coordconv);
+		for (int i = 0; i < nbLigne; i++) {
+			for (int j = 0; j < nbCol; j++) {
+				if(grid[i][j]==0){
+					coordconvinv[coordconv[i][j]][0]=i;
+					coordconvinv[coordconv[i][j]][1]=j;
+				}
+
+
+			}
+		}
+		//DebugUtils.affTab(coordconvinv);
 	}
 
 	public Grille(int nbCol, int nbLigne, int[][] g) {// Constructeur pour un
@@ -33,6 +58,31 @@ public class Grille {
 					this.grid[i][j] = 1;
 			}
 		}
+		
+		this.coordconv=new int[nbLigne][nbCol];
+		int l=0;
+		for (int i = 0; i < nbLigne; i++) {
+			for (int j = 0; j < nbCol; j++) {
+				coordconv[i][j]=l;
+				if(grid[i][j]==0)
+					l++;
+				else
+					coordconv[i][j]=-1;
+			}
+		}
+		//DebugUtils.affTab(coordconv);
+		this.coordconvinv=new int[this.numberOfValidCases()][2];
+		for (int i = 0; i < nbLigne; i++) {
+			for (int j = 0; j < nbCol; j++) {
+				if(grid[i][j]==0){
+					coordconvinv[coordconv[i][j]][0]=i;
+					coordconvinv[coordconv[i][j]][1]=j;
+				}
+
+
+			}
+		}
+		//DebugUtils.affTab(coordconvinv);
 	}
 
 	@Override
@@ -118,23 +168,10 @@ public class Grille {
 	}
 
 	public int convertToOneCoord(int i, int j) {
-		int l = 0;
-		// Mï¿½thode bourrine : on compte le nombre de cases valides avant,
-		// parcours en ligne de gauche a droite de haut en bas
-		// TODO : a amï¿½liorer
-		// Ce n'est plus bugï¿½, mais ca recalcule beaucoup trop souvent
-		for (int x = 0; x <= i; x++) {
-			for (int y = 0; y < this.nbCol; y++) {
-				if (this.grid[x][y] == 0)
-					l++;
-				if (i == x && y == j)
-					break;
-
-			}
-		}
-		l--;
-		// For debug
-		// System.out.println("("+i+","+j+") -> "+l);
-		return l;
+		return this.coordconv[i][j];
+	}
+	
+	public int[] convertToTwoCoord(int l) {
+		return this.coordconvinv[l];
 	}
 }

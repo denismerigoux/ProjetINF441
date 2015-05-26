@@ -21,8 +21,8 @@ public class TestParsing {
 		String file_name="knuth.txt";
 		EMCFileParsing.readEMC(file_name);
 		*/
-		String file_name="tetris_5_8.txt";
+		String file_name="scott.txt";
 		LinkMatrix matrix=PavageParsing.readPavageFromFile(file_name);
-		matrix.DancingLinksSolution(64035);
+		matrix.DancingLinksSolution(0);
 	}
 }
