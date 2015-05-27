@@ -5,13 +5,13 @@ import java.util.LinkedList;
 
 public class PavageParsing {
 
-	public static LinkMatrix readPavageFromStandardInput() {
+	public static LinkMatrix readPavageFromStandardInput(Grille gg) {
 		try{
 		// Crï¿½ation du buffer de lecture ï¿½ partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader bufferReader = new BufferedReader(isr);
-		LinkMatrix result = readPavage(bufferReader);
+		LinkMatrix result = readPavage(bufferReader,gg);
 		isr.close();
 		return result;
 		} catch (Exception e) {
@@ -20,7 +20,7 @@ public class PavageParsing {
 		return null;
 	}
 
-	public static LinkMatrix readPavageFromFile(String file_name) {
+	public static LinkMatrix readPavageFromFile(String file_name,Grille gg) {
 		try{
 		// CrÃ©ation du lecteur de fichier
 		FileReader inputFile = new FileReader("src/tests/pavage/" + file_name);
@@ -28,7 +28,7 @@ public class PavageParsing {
 		// CrÃ©ation du buffer de lecture Ã  partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
 		BufferedReader bufferReader = new BufferedReader(inputFile);
-		LinkMatrix result = readPavage(bufferReader);
+		LinkMatrix result = readPavage(bufferReader,gg);
 		inputFile.close();
 		return result;
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class PavageParsing {
 		return null;
 	}
 
-	private static LinkMatrix readPavage(BufferedReader bufferReader) {
+	private static LinkMatrix readPavage(BufferedReader bufferReader,Grille gg) {
 		try {
 			// String dans lequel on va stocker les lignes du fichier
 			String line;
@@ -71,7 +71,10 @@ public class PavageParsing {
 
 			// On crÃ©e la grille
 			Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
-
+			// On la transfère aussi sur le pointeur gg pour la récupérer plus tard lors de l'affichage
+			gg=new Grille(nbColGrille, nbLignesGrille, gridd);
+			System.out.println("gg :");
+			System.out.println(gg);
 			// Debug only : on affiche la grille
 			System.out.println("Affichage de la grille Ã  paver :");
 			System.out.println(grid);
