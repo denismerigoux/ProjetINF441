@@ -72,7 +72,10 @@ public class PavageParsing {
 			// On crÃ©e la grille
 			Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
 			// On la transfère aussi sur le pointeur gg pour la récupérer plus tard lors de l'affichage
+			gg=null;
+			System.out.println("gg : "+gg);
 			gg=new Grille(nbColGrille, nbLignesGrille, gridd);
+			
 			System.out.println("gg :");
 			System.out.println(gg);
 			// Debug only : on affiche la grille
@@ -130,6 +133,7 @@ public class PavageParsing {
 
 			// On crÃ©e ensuite la matrice Ã  partir du tableau
 			// et on renvoie le rÃ©sultat
+			System.out.println("gg : "+gg);
 			return matrice;
 
 		} catch (Exception e) {
