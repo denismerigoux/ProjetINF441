@@ -22,7 +22,10 @@ public class TestParsing {
 		EMCFileParsing.readEMC(file_name);
 		*/
 		String file_name="scott.txt";
-		LinkMatrix matrix=PavageParsing.readPavageFromFile(file_name);
-		matrix.DancingLinksSolution(0);
+		Object gg=null;
+		LinkMatrix matrix=PavageParsing.readPavageFromFile(file_name,(Grille)gg);
+		//matrix.DancingLinksSolution(0);
+		System.out.println(gg);
+		//Fenetre fen=new Fenetre(g,matrix.DancingLinks().get(0));
 	}
 }
