@@ -50,3 +50,5 @@ bin/
 rapport/rapport.pdf
 *.out
 *.log
+*.fls
+*.fdb_latexmk
