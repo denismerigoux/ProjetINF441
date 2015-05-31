@@ -45,3 +45,8 @@ Temporary Items
 
 #User
 bin/
+*.aux
+*.synctex.gz
+rapport/rapport.pdf
+*.out
+*.log

@@ -1,0 +1,58 @@
+\documentclass[11pt,french,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[french]{babel}
+\usepackage[a4paper,fancysections]{polytechnique}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+
+\title{Rapport de projet INF441}
+\subtitle{Les liens dansants}
+\author{Antoine \bsc{Berthier}\\ Denis \bsc{Merigoux}}
+\date{Mardi 2 juin 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Organisation du travail}
+
+\paragraph{GitHub} Afin de coordonner nos efforts et assurer un suivi optimal de notre projet, nous avons utilisé un contrôle de version Git collaboratif. Notre projet est donc également disponible à l'adresse \url{https://github.com/denismerigoux/ProjetINF441}.
+
+\paragraph{Contributions} Nous nous sommes répartis le travail comme il suit :
+\begin{itemize}
+	\item Denis a établi les modèles de données, écrit l'algorithme et s'est occupé des aspects plus théoriques du problème ;
+	\item Antoine a réalisé les méthodes d'entrée/sortie et de création d'un objet utilisable par l'algorithme à partir de l'entrée imposée.
+\end{itemize}
+
+\section{Structure du code}
+
+Toutes les fichiers source se trouvent dans le dossier |src| conformément à l'énoncé. On distingue trois catégories dans ces fichiers.
+
+\paragraph{Algorithme} D'abord les fichiers liés à l'algorithme DLX et à la structure de données permettant de le réaliser :
+\begin{itemize}
+	\item |LinkObject|, classe abstraite modélisant implémentées par tous les objects ci-dessous ;
+	\item |DataObject| qui modélise les 1 dans les matrices EMC ;
+	\item |ColmunObject| qui modélise les en-têtes de colonnes ;
+	\item |RootObject| pour l'objet \emph{root} décrit dans l'article ;
+	\item |LinkMatrix| qui encapsule tous ces objets et contient la méthode exécutant l'algorithme DLX.
+\end{itemize}
+
+\paragraph{Parsing} Les fichiers suivants servent à transformer un problème EMC ou de pavage tel qu'il est donné dans l'énoncé en un object |LinkMatrix| utilisable par l'algorithme :
+\begin{itemize}
+	\item |EMCParsing| pour l'argument |-emc| de |Main| ;
+	\item |PavageParsing| pour l'argument |-pavage| de |Main| ;
+	\item |Piece| qui modélise les pièces à paver. 
+\end{itemize}
+
+\paragraph{Entrée-sortie, test, debug} Ces fichiers 
+
+
+
+
+
+\end{document}
