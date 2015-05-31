@@ -71,7 +71,7 @@ public class PavageParsing {
 
 			// On crÃ©e la grille
 			Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
-			// On la transfère aussi sur le pointeur gg pour la récupérer plus tard lors de l'affichage
+			// On la transfï¿½re aussi sur le pointeur gg pour la rï¿½cupï¿½rer plus tard lors de l'affichage
 
 			// Debug only : on affiche la grille
 			System.out.println("Affichage de la grille Ã  paver :");
@@ -119,6 +119,7 @@ public class PavageParsing {
 
 			// DebugUtils.affTab(allLines);
 			// Il ne reste qu'Ã  crÃ©er la LinkMatrix...
+			DebugUtils.affTab(allLines, allLines.length, allLines[0].length);
 			LinkMatrix matrice = LinkMatrixCreation.createMatrixFromTab(
 					allLines, allLines[0].length, 0, allLines.length);
 
