@@ -16,6 +16,18 @@ public class ColumnObject extends LinkObject{
 		this.N=N;
 	}
 	
+	public ColumnObject(int N) {
+		//on construit les colonnes de la matrice de gauche a droite, en commencant par le RootObject
+		//ca va donner une liste chainee que l'on chaine doublement en repassant une deuxieme fois
+		this.L=this;
+		this.R=this;
+		this.U=null;
+		this.D=null;
+		this.C=this;
+		this.S=0;
+		this.N=N;
+	}
+	
 	@Override
 	public String toString(){
 		String s="entete colonne num : "+this.N+" nb maillons : "+this.S;

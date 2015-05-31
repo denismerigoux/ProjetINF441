@@ -181,6 +181,7 @@ public class LinkMatrix {
 		System.out.println("Exécution de l'algorithme DLX.");
 		PrintSolutions(this.DancingLinks());
 	}
+	
 
 	public void DancingLinksSolution(int i) {
 		System.out.println("Exécution de l'algorithme DLX.");
