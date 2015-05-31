@@ -5,13 +5,13 @@ import java.util.LinkedList;
 
 public class PavageParsing {
 
-	public static LinkMatrix readPavageFromStandardInput(Grille gg) {
+	public static Pair<LinkMatrix,Grille> readPavageFromStandardInput() {
 		try{
 		// Cr�ation du buffer de lecture � partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader bufferReader = new BufferedReader(isr);
-		LinkMatrix result = readPavage(bufferReader,gg);
+		Pair<LinkMatrix,Grille> result = readPavage(bufferReader);
 		isr.close();
 		return result;
 		} catch (Exception e) {
@@ -20,7 +20,7 @@ public class PavageParsing {
 		return null;
 	}
 
-	public static LinkMatrix readPavageFromFile(String file_name,Grille gg) {
+	public static Pair<LinkMatrix,Grille> readPavageFromFile(String file_name) {
 		try{
 		// Création du lecteur de fichier
 		FileReader inputFile = new FileReader("src/tests/pavage/" + file_name);
@@ -28,7 +28,7 @@ public class PavageParsing {
 		// Création du buffer de lecture à partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
 		BufferedReader bufferReader = new BufferedReader(inputFile);
-		LinkMatrix result = readPavage(bufferReader,gg);
+		Pair<LinkMatrix,Grille> result = readPavage(bufferReader);
 		inputFile.close();
 		return result;
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class PavageParsing {
 		return null;
 	}
 
-	private static LinkMatrix readPavage(BufferedReader bufferReader,Grille gg) {
+	private static Pair<LinkMatrix, Grille> readPavage(BufferedReader bufferReader) {
 		try {
 			// String dans lequel on va stocker les lignes du fichier
 			String line;
@@ -72,12 +72,7 @@ public class PavageParsing {
 			// On crée la grille
 			Grille grid = new Grille(nbColGrille, nbLignesGrille, gridd);
 			// On la transf�re aussi sur le pointeur gg pour la r�cup�rer plus tard lors de l'affichage
-			gg=null;
-			System.out.println("gg : "+gg);
-			gg=new Grille(nbColGrille, nbLignesGrille, gridd);
-			
-			System.out.println("gg :");
-			System.out.println(gg);
+
 			// Debug only : on affiche la grille
 			System.out.println("Affichage de la grille à paver :");
 			System.out.println(grid);
@@ -133,8 +128,8 @@ public class PavageParsing {
 
 			// On crée ensuite la matrice à partir du tableau
 			// et on renvoie le résultat
-			System.out.println("gg : "+gg);
-			return matrice;
+
+			return new Pair<LinkMatrix,Grille>(matrice,grid);
 
 		} catch (Exception e) {
 			System.out.println("Erreur en ouvrant le fichier Pavage, ou autre");

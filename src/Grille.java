@@ -9,11 +9,11 @@ public class Grille {
 	int nbLigne;
 	private final int[][] grid;
 	private int[][] coordconv; //Ce tableau stocke à la case i,j -1 si inaccessible, sa coord linéaire sinon
-	private int[][] coordconvinv; //Ce tableau stocke à la case l le coupe i,j correspondant
+	private int[][] coordconvinv; //Ce tableau stocke à la case l le couple i,j correspondant
 	// Convention interne de reprï¿½sentation : 0 si la case est accessible,
 	// n'importe quoi d'autre si elle ne l'est pas (ie quadrillage ï¿½vidï¿½)
 
-	public Grille(int nbCol, int nbLigne) {// Constructeur ^pour un quadrillage
+	public Grille(int nbCol, int nbLigne) {// Constructeur pour un quadrillage
 											// entier
 		this.nbCol = nbCol;
 		this.nbLigne = nbLigne;

@@ -5,8 +5,8 @@ public class Main {
 			LinkMatrix matrix = EMCParsing.readEMCFromStandardInput();
 			matrix.DancingLinksNumberOfSolutions();
 		} else if (args[0].equals("pavage")) {
-			LinkMatrix matrix = PavageParsing.readPavageFromStandardInput();
-			matrix.DancingLinksNumberOfSolutions();
+			Pair<LinkMatrix, Grille> result = PavageParsing.readPavageFromStandardInput();
+			result.object1.DancingLinksNumberOfSolutions();
 		} else {
 			System.out.println(args[0]+" n'est pas un argument valable !");
 		}
