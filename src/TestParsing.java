@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.Vector;
+
 
 public class TestParsing {
 	public static void main(String[] args) throws Exception {
@@ -24,6 +29,9 @@ public class TestParsing {
 		String file_name="scott.txt";
 		
 		Pair<LinkMatrix,Grille> pairOfMatrixAndGrid=PavageParsing.readPavageFromFile(file_name);
+		
+		//LinkMatrix matrice = pairOfMatrixAndGrid.object1;
+		//matrice.DancingLinksSolution(3);
 		
 		for(int i=0;i<60;i++)
 			System.out.println(pairOfMatrixAndGrid.object2.convertToOneCoord(pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[0],pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[1]));

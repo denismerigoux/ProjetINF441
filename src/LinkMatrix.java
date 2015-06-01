@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Stack;
+import java.util.List;
+import java.util.Vector;
 import java.util.Arrays;
 
 public class LinkMatrix {
@@ -70,9 +73,9 @@ public class LinkMatrix {
 		c.L.R = c;
 	}
 
-	private ArrayList<ArrayList<DataObject>> DancingLinks(
-			ArrayList<DataObject> currentSolution, int k,
-			ArrayList<ArrayList<DataObject>> solutions) {
+	private ArrayList<DataObject[]> DancingLinks(
+			Stack<DataObject> currentSolution, int k,
+			ArrayList<DataObject[]> solutions) {
 		// La fonction est recursive, il faut d'abord l'appeler avec k=0 et des
 		// tableaux vides pour solutions et currentSolution
 		// Elle outpute une liste iterative contenant des listes iteratives qui
@@ -83,7 +86,8 @@ public class LinkMatrix {
 		if (this.root.R == this.root) {
 			// Mais avant on transforme les DataObjects en le numero de leur
 			// colonne pour stocker ca plus facilement.
-			solutions.add(currentSolution);
+			DataObject[] addedSolution = new DataObject[currentSolution.size()];
+			solutions.add(currentSolution.toArray(addedSolution));
 			return solutions;
 		}
 
@@ -92,17 +96,12 @@ public class LinkMatrix {
 
 		// On couvre la colonne c
 		this.CoverColumn(c);
-
+		
 		LinkObject currentColLink = c.D;
 		while (currentColLink instanceof DataObject) {
-
-			if (currentSolution.size() > k) {
-				currentSolution.set(k, (DataObject) currentColLink);
-				// On ajoute l'element au tableau qui stocke la solution en
-				// cours
-			} else {
-				currentSolution.add((DataObject) currentColLink);
-			}
+			
+			currentSolution.push((DataObject) currentColLink);
+				
 
 			DataObject currentRowLink = (DataObject) currentColLink.R;
 			while (currentRowLink != currentColLink) {
@@ -111,9 +110,9 @@ public class LinkMatrix {
 				currentRowLink = (DataObject) currentRowLink.R;
 			}
 
-			DancingLinks(currentSolution, k + 1, solutions);
+			this.DancingLinks(currentSolution, k + 1, solutions);
 
-			currentColLink = currentSolution.get(k);
+			currentColLink = currentSolution.pop();
 			c = currentColLink.C;
 
 			currentRowLink = (DataObject) currentColLink.L;
@@ -131,13 +130,13 @@ public class LinkMatrix {
 		return solutions;
 	}
 
-	public ArrayList<ArrayList<DataObject>> DancingLinks() {
+	public ArrayList<DataObject[]> DancingLinks() {
 		// La fonction globale est surchargee, on peut l'appeler sans arguments
-		return DancingLinks(new ArrayList<DataObject>(), 0,
-				new ArrayList<ArrayList<DataObject>>());
+		return DancingLinks(new Stack<DataObject>(), 0,
+				new ArrayList<DataObject[]>());
 	}
 
-	public void PrintSolution(ArrayList<DataObject> solution) {
+	public void PrintSolution(DataObject[] solution) {
 		// la fonction prend en argument la largeur de la matrice
 		for (DataObject O : solution) {
 			// chaque O est sur une ligne différente de la solution
@@ -167,7 +166,7 @@ public class LinkMatrix {
 		}
 	}
 
-	public void PrintSolutions(ArrayList<ArrayList<DataObject>> solutions) {
+	public void PrintSolutions(ArrayList<DataObject[]> solutions) {
 		// affiche toutes les solutions
 		for (int i = 0; i < solutions.size(); i++) {
 			System.out.println(">>Solution n°" + i + " :");
@@ -185,7 +184,7 @@ public class LinkMatrix {
 
 	public void DancingLinksSolution(int i) {
 		System.out.println("Exécution de l'algorithme DLX.");
-		ArrayList<ArrayList<DataObject>> solutions = this.DancingLinks();
+		ArrayList<DataObject[]> solutions = this.DancingLinks();
 		if (i >= solutions.size()) {
 			System.out.println("La solution n°" + i
 					+ " n'existe pas, il n'y a que " + solutions.size()
@@ -199,7 +198,7 @@ public class LinkMatrix {
 	
 	public void DancingLinksNumberOfSolutions() {
 		System.out.println("Exécution de l'algorithme DLX.");
-		ArrayList<ArrayList<DataObject>> solutions = this.DancingLinks();
+		ArrayList<DataObject[]> solutions = this.DancingLinks();
 		System.out.println("Le problème admet "+solutions.size()+" solutions.");
 	}
 

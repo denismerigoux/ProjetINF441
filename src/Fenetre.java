@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Fenetre extends JFrame
 {
 	Grille grid;
-	ArrayList<DataObject> solution;
+	DataObject[] solution;
 	
-	public Fenetre(final Grille grid, final ArrayList<DataObject> solution)
+	public Fenetre(final Grille grid, final DataObject[] solution)
 	{
 		setTitle("Pavage solution");
 		setSize(600, 850);
@@ -21,12 +21,12 @@ public class Fenetre extends JFrame
 		JPanel Panneau = new JPanel(){
 			public void paintComponent(Graphics g)
 			{
-				System.out.println(solution.size()+" lignes");
+				System.out.println(solution.length+" lignes");
 				super.paintComponent(g);
 				
 				int nbOfGoodColumns=grid.numberOfValidCases();
-				for(int i=0;i<solution.size();i++){
-					DataObject first=solution.get(i);
+				for(int i=0;i<solution.length;i++){
+					DataObject first=solution[i];
 					DataObject o=first;
 					double hue = Math.random();
 					int rgb = Color.HSBtoRGB((float)hue,(float)0.5,(float)0.5);

@@ -117,7 +117,7 @@ public class PavageParsing {
 			System.out.println("La matrice comporte " + allLines.length
 					+ " lignes et " + allLines[0].length + " colonnes.");
 
-			// DebugUtils.affTab(allLines);
+			//DebugUtils.affTab(allLines);
 			// Il ne reste qu'à créer la LinkMatrix...
 			DebugUtils.affTab(allLines, allLines.length, allLines[0].length);
 			LinkMatrix matrice = LinkMatrixCreation.createMatrixFromTab(

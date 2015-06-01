@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Vector;
 
 public class DebugUtils {
 
@@ -42,5 +44,33 @@ public class DebugUtils {
 	        }
 	}
 	
+	public static boolean testSolution(Vector<DataObject> solution, int nbColPrim) {
+		int[] nbDataObject = new int[nbColPrim];
+		Arrays.fill(nbDataObject,0);
+		for (DataObject O : solution) {
+			DataObject currentLink = O;
+			if (currentLink.C.N<= nbColPrim) {
+				nbDataObject[currentLink.C.N - 1]++;
+			}
+
+			while (currentLink.R != O) {
+				// Attention, les colonnes sont numérotées de 1 à columnNumber
+				// et pas à partir de 0
+				if (currentLink.R.C.N<= nbColPrim) {
+					nbDataObject[currentLink.R.C.N - 1]++;
+				}
+				currentLink = (DataObject) currentLink.R;
+			}
+		}
+		boolean result = true;
+		for (int i =0; i<nbColPrim;i++) {
+			if (nbDataObject[i] != 1) {
+				result = false;
+			}
+		}
+		
+		return result;	
+			
+	}
 	
 }

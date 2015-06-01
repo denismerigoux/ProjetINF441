@@ -28,7 +28,7 @@ public class LinkMatrixCreation {
 		// met � jour le champ .S pour les colonnes primaires
 		updateCount(root, nbColPrim, tab);
 
-		// DebugUtils.printColumnsOnly(root, nbColPrim);
+		//DebugUtils.printColumnsOnly(root, nbColPrim);
 
 		// m�thode bien brutale : on cr�e d'abord un tableau d'objets DataTab,
 		// ou de Null (suivant 0 ou 1 dans le tableau de base)
