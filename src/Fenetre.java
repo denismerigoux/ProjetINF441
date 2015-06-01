@@ -23,6 +23,7 @@ public class Fenetre extends JFrame
 			{
 				System.out.println(solution.length+" lignes");
 				super.paintComponent(g);
+				setBackground(Color.white);
 				
 				int nbOfGoodColumns=grid.numberOfValidCases();
 				for(int i=0;i<solution.length;i++){
@@ -40,7 +41,7 @@ public class Fenetre extends JFrame
 									int y=coords[0];
 									int x=coords[1];
 									System.out.println(x+","+y+" <- "+colnb);
-									g.drawRect(50+50*x, 50+50*y, 50,50);
+									g.fillRect(53+50*x, 53+ 50*y, 47,47);
 								}
 								o=(DataObject)o.R;
 							}

@@ -35,6 +35,6 @@ public class TestParsing {
 		
 		for(int i=0;i<60;i++)
 			System.out.println(pairOfMatrixAndGrid.object2.convertToOneCoord(pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[0],pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[1]));
-		Fenetre fen=new Fenetre(pairOfMatrixAndGrid.object2,pairOfMatrixAndGrid.object1.DancingLinks().get(1));
+		Fenetre fen=new Fenetre(pairOfMatrixAndGrid.object2,pairOfMatrixAndGrid.object1.DancingLinks().get(2));
 	}
 }
