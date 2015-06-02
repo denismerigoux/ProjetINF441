@@ -26,7 +26,7 @@ public class TestParsing {
 		String file_name="knuth.txt";
 		EMCFileParsing.readEMC(file_name);
 		*/
-		String file_name="chessboard4.txt";
+		String file_name="scott.txt";
 		
 		Pair<LinkMatrix,Grille> pairOfMatrixAndGrid=PavageParsing.readPavageFromFile(file_name);
 		

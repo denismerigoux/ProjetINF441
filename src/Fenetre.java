@@ -40,7 +40,7 @@ public class Fenetre extends JFrame
 									int y=coords[0];
 									int x=coords[1];
 									//System.out.println(x+","+y+" <- "+colnb);
-									g.fillRect(53+50*x, 53+ 50*y, 47,47);
+									g.fillRect(50+50*x, 50+ 50*y, 50,50);
 								}
 								o=(DataObject)o.R;
 							}
