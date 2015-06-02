@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Fenetre extends JFrame
@@ -21,7 +20,7 @@ public class Fenetre extends JFrame
 		JPanel Panneau = new JPanel(){
 			public void paintComponent(Graphics g)
 			{
-				System.out.println(solution.length+" lignes");
+				//System.out.println(solution.length+" lignes");
 				super.paintComponent(g);
 				setBackground(Color.white);
 				
@@ -40,7 +39,7 @@ public class Fenetre extends JFrame
 									int[] coords=grid.convertToTwoCoord(colnb);
 									int y=coords[0];
 									int x=coords[1];
-									System.out.println(x+","+y+" <- "+colnb);
+									//System.out.println(x+","+y+" <- "+colnb);
 									g.fillRect(53+50*x, 53+ 50*y, 47,47);
 								}
 								o=(DataObject)o.R;

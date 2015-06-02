@@ -8,6 +8,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{graphicx}
 \usepackage{shortvrb}
 \MakeShortVerb{\|}
 
@@ -61,7 +62,7 @@ Toutes les fichiers source se trouvent dans le dossier |src| conformément à l'
 \begin{itemize}
 	\item donner tous les solutions à un problème EMC généralisé (avec des colonnes secondaires) ;
 	\item donner toutes les solutions à un problème de pavage exact ;
-	\item afficher les solutions EMC et afficher un pavage exact.
+	\item afficher les solutions EMC et afficher un pavage exact dans une fenêtre graphique.
 \end{itemize}
 
 
@@ -69,13 +70,13 @@ Toutes les fichiers source se trouvent dans le dossier |src| conformément à l'
 
 Nous avons essayé de coller au plus près de l'article très détaillé de Knuth (\cite{Knuth}) pour ce qui est de la strucutre de données. Les maillons de la chaîne, en-têtes de colonne, 1 dans la matrice ou racine partagent tous des champs |L|, |R|, |D|, |U| et |C|. Ceci nous a incité à construire d'abord une classe abstraite, |LinkObject|, implémentée par les trois classes instanciées |DataObject|, |ColumnObject| et |RootObject|. Ainsi on peut gérer les listes doublements chaînées entre les différents objets, au prix de quelques \emph{cast} et d'usage du mot clé |instanceof| de Java. Les champs des objects ci-dessus sont |public| car l'algorithme DLX nécessite de pouvoir modifier les liens entre les maillons de la liste.
 
-Il est précisé dans le sujet que l'ensemble des solutions donné par le sujet doit être doté d'un itérateur permettant d'énumérer tous les solutions. Nous avons choisi de modéliser une solution par un objet |ArrayList<DataObject>|, chaque |DataObject| représentant une rangée de la matrice choisie dans la solution. Pour afficher la matrice solution, il suffit pour chaque rangée d'afficher tous les |DataObject| de la liste doublement chaînée de la rangée correspondant au |DataObject| stocké dans le |ArrayList<DataObject>|.
+Il est précisé dans le sujet que l'ensemble des solutions donné par le sujet doit être doté d'un itérateur permettant d'énumérer tous les solutions. Nous avons choisi de modéliser une solution par un objet |DataObject[]|, chaque |DataObject| représentant une rangée de la matrice choisie dans la solution. Pour afficher la matrice solution, il suffit pour chaque rangée d'afficher tous les |DataObject| de la liste doublement chaînée de la rangée correspondant au |DataObject| stocké dans le tableau |DataObject[]|.
 
-L'ensemble des solutions et un |ArrayList<ArrayList<DataObject>|. Cette structure de données est indicée et donc facilement itérable. La classe |Main| fait ce que précise l'énoncé, mais pour afficher les solutions on pourra utiliser les méthodes suivantes de la classe |LinkMatrix| :
+L'ensemble des solutions et un |ArrayList<DataObject[]>|. Cette structure de données est indicée et donc facilement itérable. La classe |Main| fait ce que précise l'énoncé, mais pour afficher les solutions on pourra utiliser les méthodes suivantes de la classe |LinkMatrix| :
 \begin{itemize}
-	\item |public ArrayList<ArrayList<DataObject>> DancingLinks()| qui retourne la collection des solutions ;
+	\item |public ArrayList<DataObject[]> DancingLinks()| qui retourne la collection des solutions ;
 	\item |public void DancingLinksSolution()| qui affiche toutes les solutions (sous forme EMC) d'un problème ;
-	\item  |public void DancingLinksSolution(int i)| qui retourne la $i$-ième solution.
+	\item |public void DancingLinksSolution(int i)| qui retourne la $i$-ième solution.
 \end{itemize}
 
 
@@ -97,6 +98,12 @@ Ensuite, se trouvent les différentes pièces. Nous avons modélisé ces pièces
 Une fois le fichier d'entrée entièrement lu, il s'agit cette fois de créer le tableau de 0 et de 1, qui ne nous est pas donné. Pour ce faire, l'algorithme est assez simple : pour chaque pièce, pour chaque transformation de cette pièce (rotation et retournement), et pour chaque position admissible de cette pièce sur la grille, calculer la ligne correspondante. Par position admissible, nous entendons un placement de la pièce sur la grille de sorte que la pièce n'en déborde pas. Rappelons que dans la cas du pavage, une ligne est composée de deux parties : à gauche, des 1 correspondants aux cases de la grille couvertes. À droite, il y a un seul 1 parmi les dernières composantes de la ligne (il y en a autant que le nombre de pièces). Pour générer la ligne à partir d'une position d'une pièce donnée, la classe |Grille| permet de retourner les cases couvertes par un objet |Piece| donnée en argument. Notons qu'il y a quelques points délicats : par exemple, on ne sait pas à l'avance combien de lignes aura le tableau. On le crée donc de dimension 
 \[(\text{nombre de cases}\times\text{nombre de pièces}\times8 , \text{nombre de cases} + \text{nombre de pièces}),\]
 puis, à la fin de la génération des lignes, on enlève les éventuelles lignes vides à la fin. Il ne reste alors qu'à réutiliser la méthode permettant la création d'une LinkMatrix à partir d'un tableau. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=10cm]{pavage}
+\caption{Affichage d'une des solutions du problème de Scott calculée par le programme}
+\end{figure}
 
 \begin{thebibliography}{9}
 \bibitem{Knuth} Donald E. Knuth. \emph{Dancing links. Millenial Perspectives in Computer Science}, 2000.

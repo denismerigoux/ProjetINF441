@@ -10,20 +10,6 @@ public class EMCParsing {
 	// readEMC prend en argument le nom du fichier qu'il doit lire, et renvoie
 	// un objet LinkMatrix qui repr�sente les donn�es du fichier.
 	// Necessit� de faire deux passages pour chainer dans les deux sens
-	public static LinkMatrix readEMCFromStandardInput() {
-		try {
-			// Cr�ation du buffer de lecture � partir du FileReader
-			// Maintenant on peut faire .readLine() pour obtenir une ligne
-			InputStreamReader isr = new InputStreamReader(System.in);
-			BufferedReader bufferReader = new BufferedReader(isr);
-			LinkMatrix result = readEMC(bufferReader);
-			isr.close();
-			return result;
-		} catch (Exception e) {
-			System.out.println("Erreur : dans la lecture de l'entrée.");
-		}
-		return null;
-	}
 
 	public static LinkMatrix readEMCFromFile(String file_name) {
 		try {
@@ -42,7 +28,7 @@ public class EMCParsing {
 		return null;
 	}
 
-	private static LinkMatrix readEMC(BufferedReader bufferReader) {
+	public static LinkMatrix readEMC(BufferedReader bufferReader) {
 		try {
 			// String dans lequel on va stocker les lignes du fichier
 			String line;
@@ -74,10 +60,9 @@ public class EMCParsing {
 			}
 
 			// Debugage : affichage du tableau
-			System.out.println("Affichage de la matrice initiale :");
-			DebugUtils.affTab(tableau, nbLignes, nbColPrim + nbColSec);
+			//System.out.println("Affichage de la matrice initiale :");
+			//DebugUtils.affTab(tableau, nbLignes, nbColPrim + nbColSec);
 
-			bufferReader.close();
 			// System.out.println("closing buffer, successful read");
 			System.out
 					.println("Conversion de la matrice en objet utilisable par l'algorithme.");

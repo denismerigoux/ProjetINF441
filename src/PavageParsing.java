@@ -5,21 +5,6 @@ import java.util.LinkedList;
 
 public class PavageParsing {
 
-	public static Pair<LinkMatrix,Grille> readPavageFromStandardInput() {
-		try{
-		// Cr�ation du buffer de lecture � partir du FileReader
-		// Maintenant on peut faire .readLine() pour obtenir une ligne
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader bufferReader = new BufferedReader(isr);
-		Pair<LinkMatrix,Grille> result = readPavage(bufferReader);
-		isr.close();
-		return result;
-		} catch (Exception e) {
-			System.out.println("Erreur lors de la lecture de l'entrée.");
-		}
-		return null;
-	}
-
 	public static Pair<LinkMatrix,Grille> readPavageFromFile(String file_name) {
 		try{
 		// Création du lecteur de fichier
@@ -37,7 +22,7 @@ public class PavageParsing {
 		return null;
 	}
 
-	private static Pair<LinkMatrix, Grille> readPavage(BufferedReader bufferReader) {
+	public static Pair<LinkMatrix, Grille> readPavage(BufferedReader bufferReader) {
 		try {
 			// String dans lequel on va stocker les lignes du fichier
 			String line;
@@ -74,13 +59,13 @@ public class PavageParsing {
 			// On la transf�re aussi sur le pointeur gg pour la r�cup�rer plus tard lors de l'affichage
 
 			// Debug only : on affiche la grille
-			System.out.println("Affichage de la grille à paver :");
-			System.out.println(grid);
+			//System.out.println("Affichage de la grille à paver :");
+			//System.out.println(grid);
 			System.out.println("Il y a " + grid.numberOfValidCases()
 					+ " cases à paver dans cette grille.");
 			// Maintenant on lit le nombre de pièces
 			int nbPieces = Integer.parseInt(line);
-			System.out.println("Le nombre de pièce est " + nbPieces + ".");
+			System.out.println("Le nombre de pièce est " + nbPieces + ". Entrer les pièces :");
 
 			// On va stocker les pièces dans un tableau :
 			Piece[] pieces = new Piece[nbPieces];
@@ -119,13 +104,11 @@ public class PavageParsing {
 
 			//DebugUtils.affTab(allLines);
 			// Il ne reste qu'à créer la LinkMatrix...
-			DebugUtils.affTab(allLines, allLines.length, allLines[0].length);
+			//DebugUtils.affTab(allLines, allLines.length, allLines[0].length);
 			LinkMatrix matrice = LinkMatrixCreation.createMatrixFromTab(
 					allLines, allLines[0].length, 0, allLines.length);
 
 			// On finalise
-			bufferReader.close();
-			// System.out.println("closing buffer, successful read");
 
 			// On crée ensuite la matrice à partir du tableau
 			// et on renvoie le résultat

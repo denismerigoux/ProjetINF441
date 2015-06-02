@@ -26,15 +26,15 @@ public class TestParsing {
 		String file_name="knuth.txt";
 		EMCFileParsing.readEMC(file_name);
 		*/
-		String file_name="scott.txt";
+		String file_name="chessboard4.txt";
 		
 		Pair<LinkMatrix,Grille> pairOfMatrixAndGrid=PavageParsing.readPavageFromFile(file_name);
 		
 		//LinkMatrix matrice = pairOfMatrixAndGrid.object1;
 		//matrice.DancingLinksSolution(3);
 		
-		for(int i=0;i<60;i++)
+		for(int i=0;i<16;i++)
 			System.out.println(pairOfMatrixAndGrid.object2.convertToOneCoord(pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[0],pairOfMatrixAndGrid.object2.convertToTwoCoord(i)[1]));
-		Fenetre fen=new Fenetre(pairOfMatrixAndGrid.object2,pairOfMatrixAndGrid.object1.DancingLinks().get(2));
+		new Fenetre(pairOfMatrixAndGrid.object2,pairOfMatrixAndGrid.object1.DancingLinks().get(298));
 	}
 }

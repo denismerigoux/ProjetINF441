@@ -51,7 +51,6 @@ public class LinkMatrixCreation {
 	}
 
 	private static void linkVert(DataObject[][] datatab, RootObject root,int nbColPrim, int nbColSec) {
-		int N = datatab[0].length;
 		int l = datatab.length;
 		LinkObject colcourante = root.R;
 

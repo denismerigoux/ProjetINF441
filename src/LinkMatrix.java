@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.List;
-import java.util.Vector;
 import java.util.Arrays;
 
 public class LinkMatrix {
@@ -132,6 +130,7 @@ public class LinkMatrix {
 
 	public ArrayList<DataObject[]> DancingLinks() {
 		// La fonction globale est surchargee, on peut l'appeler sans arguments
+		System.out.println("Exécution de l'algorithme DLX.");
 		return DancingLinks(new Stack<DataObject>(), 0,
 				new ArrayList<DataObject[]>());
 	}
@@ -169,11 +168,9 @@ public class LinkMatrix {
 	public void PrintSolutions(ArrayList<DataObject[]> solutions) {
 		// affiche toutes les solutions
 		for (int i = 0; i < solutions.size(); i++) {
-			System.out.println(">>Solution nÂ°" + i + " :");
+			System.out.println(">>Solution n°" + i + " :");
 			this.PrintSolution(solutions.get(i));
 		}
-		System.out.println("Le problÃ¨me admet " + solutions.size()
-				+ " solutions.");
 	}
 
 	public void DancingLinksSolution() {
