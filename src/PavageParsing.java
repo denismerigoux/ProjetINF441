@@ -8,7 +8,7 @@ public class PavageParsing {
 	public static Pair<LinkMatrix,Grille> readPavageFromFile(String file_name) {
 		try{
 		// Création du lecteur de fichier
-		FileReader inputFile = new FileReader("src/tests/pavage/" + file_name);
+		FileReader inputFile = new FileReader(file_name);
 
 		// Création du buffer de lecture à partir du FileReader
 		// Maintenant on peut faire .readLine() pour obtenir une ligne
